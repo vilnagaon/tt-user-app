@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Layout from './components/Layout';
 import AdminDashboard from './components/AdminDashboard';
 import UserDashboard from './components/UserDashboard';
+import Logo from './components/Logo';
 import { AuthState, AuthRole } from './types';
 
 const App: React.FC = () => {
@@ -32,11 +33,11 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-stone-100 flex items-center justify-center px-4 py-12">
         <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-2xl border border-stone-200">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full mb-4">
-              <i className="fas fa-leaf text-emerald-700 text-3xl"></i>
+            <div className="inline-flex items-center justify-center w-full p-6 bg-emerald-900 rounded-2xl mb-6 shadow-inner">
+              <Logo className="h-16 w-auto" variant="light" />
             </div>
-            <h2 className="text-3xl font-serif font-bold text-stone-900">Bienvenue chez Teatower</h2>
-            <p className="mt-2 text-stone-500">Connectez-vous pour accéder à votre espace centralisé.</p>
+            <h2 className="text-3xl font-serif font-bold text-stone-900">Espace Centralisé</h2>
+            <p className="mt-2 text-stone-500">Gérez votre profil et vos préférences de dégustation.</p>
           </div>
 
           <div className="space-y-6">
