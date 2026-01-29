@@ -1,0 +1,5 @@
+{
+  "name": "Teatower Hub Central",
+  "description": "Plateforme centralisée de gestion client pour Teatower. Synchronisation automatique entre Odoo, Shopify et Mailchimp, avec enrichissement de profil utilisateur et dashboard admin.",
+  "requestFramePermissions": []
+}
