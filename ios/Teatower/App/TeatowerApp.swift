@@ -3,29 +3,15 @@ import Supabase
 
 @main
 struct TeatowerApp: App {
-    static let supabase = SupabaseClient(
-        supabaseURL: URL(string: "https://YOUR_PROJECT.supabase.co")!,
-        supabaseKey: "YOUR_ANON_KEY"
-    )
-
-    @State private var isAuthenticated = false
+    @State private var supabase = SupabaseManager.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.supabaseClient, TeatowerApp.supabase)
+                .environment(supabase)
+                .onOpenURL { url in
+                    Task { await supabase.handleDeepLink(url) }
+                }
         }
-    }
-}
-
-// Environment key for Supabase client
-private struct SupabaseClientKey: EnvironmentKey {
-    static let defaultValue: SupabaseClient? = nil
-}
-
-extension EnvironmentValues {
-    var supabaseClient: SupabaseClient? {
-        get { self[SupabaseClientKey.self] }
-        set { self[SupabaseClientKey.self] = newValue }
     }
 }

@@ -1,42 +1,22 @@
 import SwiftUI
-import Supabase
 
 struct ContentView: View {
-    @Environment(\.supabaseClient) private var supabase
-    @State private var session: Session?
+    @Environment(SupabaseManager.self) private var supabase
     @State private var isLoading = true
 
     var body: some View {
         Group {
             if isLoading {
                 SplashView()
-            } else if let session {
-                MainTabView(userEmail: session.user.email ?? "")
+            } else if supabase.isAuthenticated {
+                MainTabView()
             } else {
                 LoginView()
             }
         }
         .task {
-            await checkSession()
-        }
-    }
-
-    private func checkSession() async {
-        do {
-            session = try await supabase?.auth.session
-        } catch {
-            session = nil
-        }
-        isLoading = false
-
-        // Listen for auth changes
-        guard let supabase else { return }
-        for await (event, session) in supabase.auth.authStateChanges {
-            if event == .signedIn {
-                self.session = session
-            } else if event == .signedOut {
-                self.session = nil
-            }
+            await supabase.checkSession()
+            isLoading = false
         }
     }
 }
@@ -46,10 +26,12 @@ struct SplashView: View {
         ZStack {
             Color.teatowerBg.ignoresSafeArea()
             VStack(spacing: 16) {
-                Image("teatower-logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 120)
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 48))
+                    .foregroundStyle(.teatowerGreen)
+                Text("Teatower")
+                    .font(.teatowerTitle)
+                    .foregroundStyle(.teatowerGreen)
                 ProgressView()
                     .tint(.teatowerGreen)
             }
@@ -58,21 +40,19 @@ struct SplashView: View {
 }
 
 struct MainTabView: View {
-    let userEmail: String
-
     var body: some View {
         TabView {
-            TeaProfileView(email: userEmail)
+            TeaProfileView()
                 .tabItem {
                     Label("Mon Profil", systemImage: "leaf.fill")
                 }
 
-            PurchaseHistoryView(email: userEmail)
+            PurchaseHistoryView()
                 .tabItem {
                     Label("Mes Achats", systemImage: "bag.fill")
                 }
 
-            RecommendationsView(email: userEmail)
+            RecommendationsView()
                 .tabItem {
                     Label("Découvrir", systemImage: "sparkles")
                 }
@@ -80,6 +60,11 @@ struct MainTabView: View {
             StoreLocatorView()
                 .tabItem {
                     Label("Boutiques", systemImage: "mappin.and.ellipse")
+                }
+
+            SettingsView()
+                .tabItem {
+                    Label("Réglages", systemImage: "gearshape.fill")
                 }
         }
         .tint(.teatowerGreen)
