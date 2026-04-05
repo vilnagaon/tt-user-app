@@ -2,100 +2,170 @@ import SwiftUI
 
 struct RecommendationsView: View {
     @Environment(SupabaseManager.self) private var supabase
+    @State private var service = RecommendationService.shared
     @State private var member: AudienceMember?
+    @State private var purchases: [Purchase] = []
+    @State private var tags: [String] = []
+    @State private var hasLoaded = false
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    if let member, !member.teaProfile.favoriteTypes.isNilOrEmpty {
-                        // Personalized recommendations based on profile
-                        recommendationCards(member)
-                    } else {
-                        // No profile yet — show discovery
-                        discoverySection
-                    }
+                    if service.isLoading {
+                        loadingCard
+                    } else if !service.recommendations.isEmpty {
+                        // Personal message from Trevor
+                        if let msg = service.personalMessage {
+                            trevorMessage(msg)
+                        }
 
-                    // Always show: seasonal picks
-                    seasonalSection
+                        // Pour vous
+                        let pourVous = service.recommendations.filter { $0.category == "pour vous" }
+                        if !pourVous.isEmpty {
+                            sectionCard(title: "Pour vous", icon: "heart.fill", color: .teatowerGreen, recs: pourVous)
+                        }
+
+                        // À découvrir
+                        let decouvrir = service.recommendations.filter { $0.category == "à découvrir" }
+                        if !decouvrir.isEmpty {
+                            sectionCard(title: "À découvrir", icon: "sparkles", color: .teatowerBrown, recs: decouvrir)
+                        }
+
+                        // Saison
+                        let saison = service.recommendations.filter { $0.category == "saison" }
+                        if !saison.isEmpty {
+                            sectionCard(title: "Sélection de saison", icon: "sun.max.fill", color: .orange, recs: saison)
+                        }
+                    } else if member?.teaProfile.favoriteTypes.isNilOrEmpty == true {
+                        noProfileCard
+                    } else {
+                        noProfileCard
+                    }
                 }
                 .padding()
             }
             .background(Color.teatowerBg)
             .navigationTitle("Découvrir")
+            .refreshable { await loadAndRecommend() }
         }
         .task {
-            member = try? await supabase.fetchProfile()
+            guard !hasLoaded else { return }
+            await loadAndRecommend()
+            hasLoaded = true
         }
     }
 
-    private func recommendationCards(_ m: AudienceMember) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Label("Pour vous", systemImage: "sparkles")
+    // MARK: - Trevor Message
+
+    private func trevorMessage(_ message: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(Color.teatowerGreen)
+                    .frame(width: 40, height: 40)
+                Text("🍵")
+                    .font(.system(size: 18))
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Trevor, votre sommelier")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(.teatowerGreen)
+                Text(message)
+                    .font(.system(size: 14))
+                    .foregroundStyle(.primary)
+                    .lineSpacing(3)
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+
+    // MARK: - Section Card
+
+    private func sectionCard(title: String, icon: String, color: Color, recs: [RecommendationService.TeaRecommendation]) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Label(title, systemImage: icon)
                 .font(.teatowerHeading)
-                .foregroundStyle(.teatowerGreen)
+                .foregroundStyle(color)
 
-            Text("Basé sur vos \(m.totalOrders) achats et vos préférences.")
-                .font(.teatowerBody)
-                .foregroundStyle(.teatowerMuted)
-
-            // This will use Claude API in a future sprint
-            VStack(spacing: 12) {
-                recommendCard(
-                    emoji: "🍵",
-                    title: "Matcha Japonais",
-                    reason: "Votre catégorie préférée — avez-vous essayé le Matcha Cérémonie ?",
-                    color: .teatowerGreen
-                )
-                recommendCard(
-                    emoji: "🌸",
-                    title: "Sakura",
-                    reason: "Édition de printemps — parfait pour la saison.",
-                    color: .pink
-                )
-                recommendCard(
-                    emoji: "🧊",
-                    title: "Collection Glacée",
-                    reason: "L'été arrive — découvrez nos infusions à froid.",
-                    color: .blue
-                )
+            ForEach(recs) { rec in
+                recommendationRow(rec, accentColor: color)
             }
         }
         .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
-    private func recommendCard(emoji: String, title: String, reason: String, color: Color) -> some View {
+    private func recommendationRow(_ rec: RecommendationService.TeaRecommendation, accentColor: Color) -> some View {
         HStack(spacing: 14) {
-            Text(emoji)
-                .font(.system(size: 32))
+            // Emoji avatar
+            Text(rec.emoji)
+                .font(.system(size: 28))
                 .frame(width: 48, height: 48)
-                .background(color.opacity(0.1))
+                .background(accentColor.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(.primary)
-                Text(reason)
+            VStack(alignment: .leading, spacing: 3) {
+                HStack {
+                    Text(rec.productName)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    // Match score
+                    Text("\(rec.matchScore)%")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(matchColor(rec.matchScore))
+                        .clipShape(Capsule())
+                }
+                Text(rec.reason)
                     .font(.system(size: 12))
                     .foregroundStyle(.teatowerMuted)
                     .lineLimit(2)
+                if !rec.sku.isEmpty {
+                    Text(rec.sku)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.teatowerMuted.opacity(0.6))
+                }
             }
-
-            Spacer()
-
-            Image(systemName: "chevron.right")
-                .font(.system(size: 12))
-                .foregroundStyle(.teatowerMuted)
         }
         .padding(12)
-        .background(Color.teatowerBg)
+        .background(Color.teatowerBg.opacity(0.5))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private var discoverySection: some View {
+    private func matchColor(_ score: Int) -> Color {
+        if score >= 85 { return .teatowerGreen }
+        if score >= 70 { return .teatowerBrown }
+        return .teatowerMuted
+    }
+
+    // MARK: - Loading
+
+    private var loadingCard: some View {
+        VStack(spacing: 16) {
+            ProgressView()
+                .controlSize(.large)
+                .tint(.teatowerGreen)
+            Text("Trevor prépare vos recommandations...")
+                .font(.teatowerBody)
+                .foregroundStyle(.teatowerMuted)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(40)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var noProfileCard: some View {
         VStack(spacing: 16) {
             Image(systemName: "sparkles")
                 .font(.system(size: 40))
@@ -105,7 +175,7 @@ struct RecommendationsView: View {
                 .font(.teatowerHeading)
                 .foregroundStyle(.teatowerGreen)
 
-            Text("Plus on vous connaît, meilleures seront nos recommandations.\nAllez dans Mon Profil pour ajouter vos préférences.")
+            Text("Plus on vous connaît, meilleures seront vos recommandations.\nAllez dans Mon Profil pour renseigner vos goûts.")
                 .font(.teatowerBody)
                 .foregroundStyle(.teatowerMuted)
                 .multilineTextAlignment(.center)
@@ -116,44 +186,23 @@ struct RecommendationsView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
-    private var seasonalSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Label("Sélection de saison", systemImage: "sun.max.fill")
-                .font(.teatowerHeading)
-                .foregroundStyle(.teatowerBrown)
+    // MARK: - Data
 
-            HStack(spacing: 12) {
-                seasonCard(emoji: "🌿", name: "Infusion du Printemps", price: "10,00€")
-                seasonCard(emoji: "🍃", name: "Vert Jasmin", price: "10,00€")
-                seasonCard(emoji: "🍵", name: "Matcha Japonais", price: "20,00€")
+    private func loadAndRecommend() async {
+        do {
+            member = try await supabase.fetchProfile()
+            purchases = try await supabase.fetchPurchases()
+            tags = try await supabase.fetchTags()
+
+            if let member {
+                await service.generateRecommendations(
+                    member: member,
+                    purchases: purchases,
+                    tags: tags
+                )
             }
+        } catch {
+            print("Failed to load recommendations: \(error)")
         }
-        .padding(20)
-        .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-    }
-
-    private func seasonCard(emoji: String, name: String, price: String) -> some View {
-        VStack(spacing: 6) {
-            Text(emoji).font(.system(size: 28))
-            Text(name)
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(.primary)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-            Text(price)
-                .font(.system(size: 12, weight: .bold))
-                .foregroundStyle(.teatowerBrown)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(12)
-        .background(Color.teatowerBg)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
-
-extension Optional where Wrapped: Collection {
-    var isNilOrEmpty: Bool {
-        self?.isEmpty ?? true
     }
 }
