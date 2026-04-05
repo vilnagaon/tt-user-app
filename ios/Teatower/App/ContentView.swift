@@ -52,6 +52,11 @@ struct MainTabView: View {
                     Label("Mes Achats", systemImage: "bag.fill")
                 }
 
+            BadgesView()
+                .tabItem {
+                    Label("Badges", systemImage: "trophy.fill")
+                }
+
             RecommendationsView()
                 .tabItem {
                     Label("Découvrir", systemImage: "sparkles")
