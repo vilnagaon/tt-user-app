@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(SupabaseManager.self) private var supabase
     @State private var isLoading = true
+    @State private var needsOnboarding = false
 
     var body: some View {
         Group {
@@ -10,6 +11,9 @@ struct ContentView: View {
                 SplashView()
             } else if supabase.isAuthenticated {
                 MainTabView()
+                    .sheet(isPresented: $needsOnboarding) {
+                        OnboardingQuizView()
+                    }
             } else {
                 LoginView()
             }
@@ -17,6 +21,24 @@ struct ContentView: View {
         .task {
             await supabase.checkSession()
             isLoading = false
+
+            // Check if onboarding needed
+            if supabase.isAuthenticated {
+                await checkOnboarding()
+            }
+        }
+    }
+
+    private func checkOnboarding() async {
+        do {
+            if let profile = try await supabase.fetchProfile() {
+                let types = profile.teaProfile.favoriteTypes ?? []
+                needsOnboarding = types.isEmpty
+            } else {
+                needsOnboarding = true
+            }
+        } catch {
+            needsOnboarding = false
         }
     }
 }
