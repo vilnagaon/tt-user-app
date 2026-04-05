@@ -6,6 +6,7 @@ struct TeaProfileView: View {
     @State private var tags: [String] = []
     @State private var isLoading = true
     @State private var isEditing = false
+    @State private var showEditProfile = false
 
     var body: some View {
         NavigationStack {
@@ -32,6 +33,27 @@ struct TeaProfileView: View {
             .background(Color.teatowerBg)
             .navigationTitle("Mon Profil")
             .refreshable { await loadProfile() }
+            .toolbar {
+                if member != nil {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            showEditProfile = true
+                        } label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.system(size: 22))
+                                .foregroundStyle(.teatowerBrown)
+                        }
+                    }
+                }
+            }
+            .sheet(isPresented: $showEditProfile) {
+                // Reload after edit
+                Task { await loadProfile() }
+            } content: {
+                if let member {
+                    EditTeaProfileView(profile: member.teaProfile)
+                }
+            }
         }
         .task { await loadProfile() }
     }
@@ -205,8 +227,8 @@ struct TeaProfileView: View {
                     .font(.teatowerHeading)
                     .foregroundStyle(.teatowerGreen)
                 Spacer()
-                Button(isEditing ? "Terminé" : "Modifier") {
-                    isEditing.toggle()
+                Button("Modifier") {
+                    showEditProfile = true
                 }
                 .font(.teatowerCaption)
                 .foregroundStyle(.teatowerBrown)
