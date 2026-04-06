@@ -79,9 +79,9 @@ struct MainTabView: View {
                     Label("Fidélité", systemImage: "star.fill")
                 }
 
-            RecommendationsView()
+            JournalListView()
                 .tabItem {
-                    Label("Découvrir", systemImage: "sparkles")
+                    Label("Journal", systemImage: "book.fill")
                 }
 
             MoreView()
@@ -101,6 +101,12 @@ struct MoreView: View {
                     BadgesView()
                 } label: {
                     Label("Mes Badges", systemImage: "trophy.fill")
+                }
+
+                NavigationLink {
+                    RecommendationsView()
+                } label: {
+                    Label("Recommandations", systemImage: "sparkles")
                 }
 
                 NavigationLink {
