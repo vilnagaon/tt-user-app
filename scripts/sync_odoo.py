@@ -23,6 +23,24 @@ MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY", "")
 MAILCHIMP_DC = "us13"
 MAILCHIMP_LIST = "3c28234aea"
 
+def parse_odoo_name(full_name):
+    """Parse Odoo 'name' field into (first_name, last_name).
+    Handles duplicated first names: 'Christian Christian Yerles' → ('Christian', 'Yerles')
+    """
+    name = full_name.strip()
+    if not name:
+        return ("", "")
+    parts = name.split()
+    if len(parts) == 1:
+        return (parts[0], "")
+    # Check if second word is a duplicate of the first (case-insensitive)
+    if parts[1].lower() == parts[0].lower():
+        # "Christian Christian Yerles" → first="Christian", last="Yerles"
+        return (parts[0], " ".join(parts[2:]))
+    else:
+        # "Francoise Saint Paul" → first="Francoise", last="Saint Paul"
+        return (parts[0], " ".join(parts[1:]))
+
 POS_MAP = {1: "pos_waterloo", 2: "pos_popup", 3: "pos_liege", 4: "pos_namur", 5: "pos_liege"}
 STORE_TAGS = {1: "POS-Waterloo", 2: "POS-Popup", 3: "POS-Liège", 4: "POS-Namur", 5: "POS-Liège"}
 STORE_MC_TAGS = {"waterloo": "Waterloo", "namur": "Namur", "liege": "Liège", "pos_waterloo": "Waterloo", "pos_namur": "Namur", "pos_liege": "Liège"}
@@ -235,9 +253,7 @@ for p in partners:
     if not email or "@" not in email:
         continue
     partner_map[p["id"]] = email
-    name_parts = (p.get("name") or "").split(" ", 1)
-    first_name = name_parts[0] if name_parts else ""
-    last_name = name_parts[1] if len(name_parts) > 1 else ""
+    first_name, last_name = parse_odoo_name(p.get("name") or "")
 
     batch.append({
         "email": email,
@@ -276,9 +292,7 @@ for p in partners:
         mailchimp_skipped += 1
         continue
 
-    name_parts = (p.get("name") or "").split(" ", 1)
-    first_name = name_parts[0] if name_parts else ""
-    last_name = name_parts[1] if len(name_parts) > 1 else ""
+    first_name, last_name = parse_odoo_name(p.get("name") or "")
     store = p.get("city") or ""
 
     # Shopify
