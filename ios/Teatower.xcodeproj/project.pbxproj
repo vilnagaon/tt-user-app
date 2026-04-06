@@ -1,0 +1,598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B9863772BBF71F9E1359523 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97918567C64F205A28EF40A /* Customer.swift */; };
+		1EECBE21236F1B954F07C756 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498D56EDE3E08F3DDD702 /* ScanView.swift */; };
+		1F46F2D9381250798CC116B0 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D6F555C176B17067119D28 /* PushNotificationService.swift */; };
+		2136D7DD7DA63F716362A350 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FEAD0947B79438C9A5D3A /* SupabaseManager.swift */; };
+		2C1AEF510BBA49DE11A7D519 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A432C2EF82AC2C424A3AE71B /* LoginView.swift */; };
+		4035F3368891D63BA9698DA4 /* TeatowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654710834D83AE29AD65896 /* TeatowerApp.swift */; };
+		4E31B55BEBA3FBE59A864F91 /* LoyaltyDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D62DD7FEECEAD6CE2C28C /* LoyaltyDashboardView.swift */; };
+		5709E6D7694F7DFDD57A8295 /* TeaProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F793CC30D0E5D93B880B1 /* TeaProfileView.swift */; };
+		6626B6A4B9E649174A11AE72 /* JournalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D926419066AC44D74FFA0A /* JournalListView.swift */; };
+		6F2D39599773F72593A66A27 /* NewJournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC053307A2F4D7E76260769 /* NewJournalEntryView.swift */; };
+		719C70F7B364A5F61EBC9808 /* RecommendationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124342B0C692795B67418A5 /* RecommendationService.swift */; };
+		840907D3F4278F003939AA15 /* ReferralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07A8D3B70EB9A331F49397 /* ReferralView.swift */; };
+		8548170EE8517DF6B7CC1437 /* NotificationCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067FB85A08A386554128055D /* NotificationCenterView.swift */; };
+		868AB28816F52C0F23862B56 /* Loyalty.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77E1DC26785158AFBA1B06 /* Loyalty.swift */; };
+		8CB96B5C8957BEA976DC2D1B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB636B34032D9E1C6B9A9A5 /* SettingsView.swift */; };
+		8EFF6E126445196671F8C22A /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = B7FE5DE17FB8679E6CC4373E /* Supabase */; };
+		A68A65AA1238A7A670CD4A24 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74335593183422CDCE94DD63 /* Product.swift */; };
+		A6A273B75E5DBD9DAB557DBB /* EditTeaProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC54ABE3F03C35F141DF3111 /* EditTeaProfileView.swift */; };
+		A8EB1545BDA86E5E4CC24EF5 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25D6EB215C65A357D104E1 /* WalletView.swift */; };
+		AD7376E522AA48963A9E7F31 /* StoreLocatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF7F432ED724E94A795B238 /* StoreLocatorView.swift */; };
+		B0EB202EC8A0F756625A648D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28669324A97265DC22119686 /* ContentView.swift */; };
+		B32E65993417BC4F0178927B /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A60E94723BC2E1060AEFDEB /* RecommendationsView.swift */; };
+		CAE46B3E10C174A190F1F12B /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F90C95151E310CFB38B853 /* JournalEntry.swift */; };
+		CC8ACBE8E380D066D561BC6D /* OnboardingQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BB1D6B30C38596B65925A /* OnboardingQuizView.swift */; };
+		D277ED43EAB1A3EFBB904C45 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD90FD6781DC9FF360F4E4 /* Theme.swift */; };
+		E7462D14BEAC26B287BD63BC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91922E20BB6E5C73CBD4516F /* Notification.swift */; };
+		EC46A71969F7B98732AC38FC /* PurchaseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399BC531756FE6767C0E7A59 /* PurchaseHistoryView.swift */; };
+		ED47CAD561BB316D7E05FCD5 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF9567FF4518B32F4B3B5E2 /* Purchase.swift */; };
+		EEFFE7DF75A2B372EEDF9C7B /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D05EE0B0B8BED48AEE8FF /* BadgesView.swift */; };
+		F2490AD6A5ED50BCA5853DE6 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727AD7858BFF30F52380C69B /* Badge.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		067FB85A08A386554128055D /* NotificationCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterView.swift; sourceTree = "<group>"; };
+		12D926419066AC44D74FFA0A /* JournalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListView.swift; sourceTree = "<group>"; };
+		28669324A97265DC22119686 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2BF7F432ED724E94A795B238 /* StoreLocatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLocatorView.swift; sourceTree = "<group>"; };
+		326F793CC30D0E5D93B880B1 /* TeaProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeaProfileView.swift; sourceTree = "<group>"; };
+		399BC531756FE6767C0E7A59 /* PurchaseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryView.swift; sourceTree = "<group>"; };
+		3A60E94723BC2E1060AEFDEB /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
+		3BB636B34032D9E1C6B9A9A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		48D015316B13688F1001C12B /* Teatower.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Teatower.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52F90C95151E310CFB38B853 /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
+		5C1BB1D6B30C38596B65925A /* OnboardingQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingQuizView.swift; sourceTree = "<group>"; };
+		727AD7858BFF30F52380C69B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		74335593183422CDCE94DD63 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		85D6F555C176B17067119D28 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
+		8EF9567FF4518B32F4B3B5E2 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		91922E20BB6E5C73CBD4516F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		9A5498D56EDE3E08F3DDD702 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		A432C2EF82AC2C424A3AE71B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A97918567C64F205A28EF40A /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		AA25D6EB215C65A357D104E1 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		B3BD90FD6781DC9FF360F4E4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B654710834D83AE29AD65896 /* TeatowerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeatowerApp.swift; sourceTree = "<group>"; };
+		BA8D62DD7FEECEAD6CE2C28C /* LoyaltyDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyDashboardView.swift; sourceTree = "<group>"; };
+		BB7FEAD0947B79438C9A5D3A /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
+		BE77E1DC26785158AFBA1B06 /* Loyalty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loyalty.swift; sourceTree = "<group>"; };
+		C7C69161C7CA26F978FCDDD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D26D05EE0B0B8BED48AEE8FF /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
+		DFC053307A2F4D7E76260769 /* NewJournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJournalEntryView.swift; sourceTree = "<group>"; };
+		E124342B0C692795B67418A5 /* RecommendationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationService.swift; sourceTree = "<group>"; };
+		F0FFBFAD988D90E07C9A4AA1 /* Teatower.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Teatower.entitlements; sourceTree = "<group>"; };
+		FC54ABE3F03C35F141DF3111 /* EditTeaProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeaProfileView.swift; sourceTree = "<group>"; };
+		FF07A8D3B70EB9A331F49397 /* ReferralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84FAB9AA84A88A6FB28F458A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EFF6E126445196671F8C22A /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23FE93E548CA7FB4DBB2E4BD /* Journal */ = {
+			isa = PBXGroup;
+			children = (
+				12D926419066AC44D74FFA0A /* JournalListView.swift */,
+				DFC053307A2F4D7E76260769 /* NewJournalEntryView.swift */,
+			);
+			path = Journal;
+			sourceTree = "<group>";
+		};
+		274116B12930E780FBAC65F9 /* Loyalty */ = {
+			isa = PBXGroup;
+			children = (
+				BA8D62DD7FEECEAD6CE2C28C /* LoyaltyDashboardView.swift */,
+			);
+			path = Loyalty;
+			sourceTree = "<group>";
+		};
+		43EE6A40D5969D63A30E67AB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3BB636B34032D9E1C6B9A9A5 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4571D18004EA0D7FB170C247 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				727AD7858BFF30F52380C69B /* Badge.swift */,
+				A97918567C64F205A28EF40A /* Customer.swift */,
+				52F90C95151E310CFB38B853 /* JournalEntry.swift */,
+				BE77E1DC26785158AFBA1B06 /* Loyalty.swift */,
+				91922E20BB6E5C73CBD4516F /* Notification.swift */,
+				74335593183422CDCE94DD63 /* Product.swift */,
+				8EF9567FF4518B32F4B3B5E2 /* Purchase.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4779E36F9B77992DF9B9DE12 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				B3BD90FD6781DC9FF360F4E4 /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		48FB07A9D7CFEEF8C6107B19 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FC54ABE3F03C35F141DF3111 /* EditTeaProfileView.swift */,
+				326F793CC30D0E5D93B880B1 /* TeaProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		55F9468E9ED3A5F0D64444C4 /* Referral */ = {
+			isa = PBXGroup;
+			children = (
+				FF07A8D3B70EB9A331F49397 /* ReferralView.swift */,
+			);
+			path = Referral;
+			sourceTree = "<group>";
+		};
+		7B0171C2427BBED6C59BF480 /* Badges */ = {
+			isa = PBXGroup;
+			children = (
+				D26D05EE0B0B8BED48AEE8FF /* BadgesView.swift */,
+			);
+			path = Badges;
+			sourceTree = "<group>";
+		};
+		7C4048BEC08134CC3BD73262 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				067FB85A08A386554128055D /* NotificationCenterView.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		87646656DE8EC888B4FB81A9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A432C2EF82AC2C424A3AE71B /* LoginView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		94A02B9FB31E4C182288FBF2 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				2BF7F432ED724E94A795B238 /* StoreLocatorView.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		965C0B3AEF051A8546AF988D /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				9A5498D56EDE3E08F3DDD702 /* ScanView.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		9864B3D9DB04AD5F1B86CE59 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				3A60E94723BC2E1060AEFDEB /* RecommendationsView.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		A72496D5809ABED3452438B7 = {
+			isa = PBXGroup;
+			children = (
+				F0DF9EC9EA9792716BB7A22A /* Teatower */,
+				DE73445CFC0806E79BC5E35B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB2009DEA9ED48E0EA359178 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				399BC531756FE6767C0E7A59 /* PurchaseHistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		BE16D97AEE73415982749F9C /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				AA25D6EB215C65A357D104E1 /* WalletView.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		C23B68F899DB0556211C475A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				28669324A97265DC22119686 /* ContentView.swift */,
+				B654710834D83AE29AD65896 /* TeatowerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C5C656BA508F79211978048E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				85D6F555C176B17067119D28 /* PushNotificationService.swift */,
+				E124342B0C692795B67418A5 /* RecommendationService.swift */,
+				BB7FEAD0947B79438C9A5D3A /* SupabaseManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D6F7CDC15B359F131B2CF3B0 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				87646656DE8EC888B4FB81A9 /* Auth */,
+				7B0171C2427BBED6C59BF480 /* Badges */,
+				9864B3D9DB04AD5F1B86CE59 /* Discover */,
+				AB2009DEA9ED48E0EA359178 /* History */,
+				23FE93E548CA7FB4DBB2E4BD /* Journal */,
+				274116B12930E780FBAC65F9 /* Loyalty */,
+				7C4048BEC08134CC3BD73262 /* Notifications */,
+				EF2DE821A894D71B220850C8 /* Onboarding */,
+				48FB07A9D7CFEEF8C6107B19 /* Profile */,
+				55F9468E9ED3A5F0D64444C4 /* Referral */,
+				965C0B3AEF051A8546AF988D /* Scan */,
+				43EE6A40D5969D63A30E67AB /* Settings */,
+				94A02B9FB31E4C182288FBF2 /* Stores */,
+				BE16D97AEE73415982749F9C /* Wallet */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		DE73445CFC0806E79BC5E35B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48D015316B13688F1001C12B /* Teatower.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF2DE821A894D71B220850C8 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				5C1BB1D6B30C38596B65925A /* OnboardingQuizView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F0DF9EC9EA9792716BB7A22A /* Teatower */ = {
+			isa = PBXGroup;
+			children = (
+				C7C69161C7CA26F978FCDDD5 /* Info.plist */,
+				F0FFBFAD988D90E07C9A4AA1 /* Teatower.entitlements */,
+				C23B68F899DB0556211C475A /* App */,
+				4779E36F9B77992DF9B9DE12 /* Design */,
+				D6F7CDC15B359F131B2CF3B0 /* Features */,
+				4571D18004EA0D7FB170C247 /* Models */,
+				C5C656BA508F79211978048E /* Services */,
+			);
+			path = Teatower;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F98C56F70A2E10DE16BE6344 /* Teatower */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E584051ACEEC7E57A69A80D8 /* Build configuration list for PBXNativeTarget "Teatower" */;
+			buildPhases = (
+				0A3F6961DF2321F2A754EC89 /* Sources */,
+				84FAB9AA84A88A6FB28F458A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Teatower;
+			packageProductDependencies = (
+				B7FE5DE17FB8679E6CC4373E /* Supabase */,
+			);
+			productName = Teatower;
+			productReference = 48D015316B13688F1001C12B /* Teatower.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14BE530BBAE66FE3284CC08D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = A70CDD1BB5D0E9F7D9F9CAF8 /* Build configuration list for PBXProject "Teatower" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A72496D5809ABED3452438B7;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B8171BA9D58EB9DFF3A4711C /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DE73445CFC0806E79BC5E35B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F98C56F70A2E10DE16BE6344 /* Teatower */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A3F6961DF2321F2A754EC89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2490AD6A5ED50BCA5853DE6 /* Badge.swift in Sources */,
+				EEFFE7DF75A2B372EEDF9C7B /* BadgesView.swift in Sources */,
+				B0EB202EC8A0F756625A648D /* ContentView.swift in Sources */,
+				0B9863772BBF71F9E1359523 /* Customer.swift in Sources */,
+				A6A273B75E5DBD9DAB557DBB /* EditTeaProfileView.swift in Sources */,
+				CAE46B3E10C174A190F1F12B /* JournalEntry.swift in Sources */,
+				6626B6A4B9E649174A11AE72 /* JournalListView.swift in Sources */,
+				2C1AEF510BBA49DE11A7D519 /* LoginView.swift in Sources */,
+				868AB28816F52C0F23862B56 /* Loyalty.swift in Sources */,
+				4E31B55BEBA3FBE59A864F91 /* LoyaltyDashboardView.swift in Sources */,
+				6F2D39599773F72593A66A27 /* NewJournalEntryView.swift in Sources */,
+				E7462D14BEAC26B287BD63BC /* Notification.swift in Sources */,
+				8548170EE8517DF6B7CC1437 /* NotificationCenterView.swift in Sources */,
+				CC8ACBE8E380D066D561BC6D /* OnboardingQuizView.swift in Sources */,
+				A68A65AA1238A7A670CD4A24 /* Product.swift in Sources */,
+				ED47CAD561BB316D7E05FCD5 /* Purchase.swift in Sources */,
+				EC46A71969F7B98732AC38FC /* PurchaseHistoryView.swift in Sources */,
+				1F46F2D9381250798CC116B0 /* PushNotificationService.swift in Sources */,
+				719C70F7B364A5F61EBC9808 /* RecommendationService.swift in Sources */,
+				B32E65993417BC4F0178927B /* RecommendationsView.swift in Sources */,
+				840907D3F4278F003939AA15 /* ReferralView.swift in Sources */,
+				1EECBE21236F1B954F07C756 /* ScanView.swift in Sources */,
+				8CB96B5C8957BEA976DC2D1B /* SettingsView.swift in Sources */,
+				AD7376E522AA48963A9E7F31 /* StoreLocatorView.swift in Sources */,
+				2136D7DD7DA63F716362A350 /* SupabaseManager.swift in Sources */,
+				5709E6D7694F7DFDD57A8295 /* TeaProfileView.swift in Sources */,
+				4035F3368891D63BA9698DA4 /* TeatowerApp.swift in Sources */,
+				D277ED43EAB1A3EFBB904C45 /* Theme.swift in Sources */,
+				A8EB1545BDA86E5E4CC24EF5 /* WalletView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		269A3EBCB7EC25DD710FA9A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		82A31297387C4DF2A66428CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A0F69476664255314D289EC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Teatower/Teatower.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Teatower/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Teatower;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatower.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AEE66F2A5075AA25CB5F72F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Teatower/Teatower.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Teatower/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Teatower;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatower.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A70CDD1BB5D0E9F7D9F9CAF8 /* Build configuration list for PBXProject "Teatower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82A31297387C4DF2A66428CE /* Debug */,
+				269A3EBCB7EC25DD710FA9A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E584051ACEEC7E57A69A80D8 /* Build configuration list for PBXNativeTarget "Teatower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0F69476664255314D289EC3 /* Debug */,
+				AEE66F2A5075AA25CB5F72F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B8171BA9D58EB9DFF3A4711C /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B7FE5DE17FB8679E6CC4373E /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8171BA9D58EB9DFF3A4711C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 14BE530BBAE66FE3284CC08D /* Project object */;
+}
