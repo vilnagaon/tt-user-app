@@ -66,17 +66,17 @@ struct MainTabView: View {
         TabView {
             TeaProfileView()
                 .tabItem {
-                    Label("Mon Profil", systemImage: "leaf.fill")
+                    Label("Profil", systemImage: "leaf.fill")
                 }
 
             PurchaseHistoryView()
                 .tabItem {
-                    Label("Mes Achats", systemImage: "bag.fill")
+                    Label("Achats", systemImage: "bag.fill")
                 }
 
-            BadgesView()
+            LoyaltyDashboardView()
                 .tabItem {
-                    Label("Badges", systemImage: "trophy.fill")
+                    Label("Fidélité", systemImage: "star.fill")
                 }
 
             RecommendationsView()
@@ -84,16 +84,38 @@ struct MainTabView: View {
                     Label("Découvrir", systemImage: "sparkles")
                 }
 
-            StoreLocatorView()
+            MoreView()
                 .tabItem {
-                    Label("Boutiques", systemImage: "mappin.and.ellipse")
-                }
-
-            SettingsView()
-                .tabItem {
-                    Label("Réglages", systemImage: "gearshape.fill")
+                    Label("Plus", systemImage: "ellipsis")
                 }
         }
         .tint(.teatowerGreen)
+    }
+}
+
+struct MoreView: View {
+    var body: some View {
+        NavigationStack {
+            List {
+                NavigationLink {
+                    BadgesView()
+                } label: {
+                    Label("Mes Badges", systemImage: "trophy.fill")
+                }
+
+                NavigationLink {
+                    StoreLocatorView()
+                } label: {
+                    Label("Nos Boutiques", systemImage: "mappin.and.ellipse")
+                }
+
+                NavigationLink {
+                    SettingsView()
+                } label: {
+                    Label("Réglages", systemImage: "gearshape.fill")
+                }
+            }
+            .navigationTitle("Plus")
+        }
     }
 }

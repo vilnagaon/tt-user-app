@@ -27,6 +27,9 @@ struct AudienceMember: Codable, Identifiable {
     var lastPurchaseDate: Date?
     var lastActivityDate: Date?
     var teaProfile: TeaProfile
+    var loyaltyPoints: Int
+    var loyaltyTier: String
+    var loyaltyPointsLifetime: Int
     var createdAt: Date?
     var updatedAt: Date?
 
@@ -56,6 +59,9 @@ struct AudienceMember: Codable, Identifiable {
         case lastPurchaseDate = "last_purchase_date"
         case lastActivityDate = "last_activity_date"
         case teaProfile = "tea_profile"
+        case loyaltyPoints = "loyalty_points"
+        case loyaltyTier = "loyalty_tier"
+        case loyaltyPointsLifetime = "loyalty_points_lifetime"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
