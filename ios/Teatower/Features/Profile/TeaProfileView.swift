@@ -34,6 +34,9 @@ struct TeaProfileView: View {
             .navigationTitle("Mon Profil")
             .refreshable { await loadProfile() }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NotificationBellButton()
+                }
                 if member != nil {
                     ToolbarItem(placement: .primaryAction) {
                         Button {
