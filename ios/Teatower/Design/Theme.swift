@@ -15,6 +15,20 @@ extension Color {
     static let storeOnline = Color(hex: "96BF48")
 }
 
+// Allow .teatowerGreen etc. in foregroundStyle() and other ShapeStyle contexts
+extension ShapeStyle where Self == Color {
+    static var teatowerGreen: Color { .teatowerGreen }
+    static var teatowerBrown: Color { .teatowerBrown }
+    static var teatowerBg: Color { .teatowerBg }
+    static var teatowerCard: Color { .teatowerCard }
+    static var teatowerBorder: Color { .teatowerBorder }
+    static var teatowerMuted: Color { .teatowerMuted }
+    static var storeWaterloo: Color { .storeWaterloo }
+    static var storeNamur: Color { .storeNamur }
+    static var storeLiege: Color { .storeLiege }
+    static var storeOnline: Color { .storeOnline }
+}
+
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
