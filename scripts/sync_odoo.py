@@ -1,9 +1,11 @@
 import os
-"""Sync Odoo POS partners + orders → Supabase audience + purchases + Shopify customer creation."""
+"""Sync Odoo POS partners + orders → Supabase audience + purchases + Shopify + Mailchimp customer creation."""
 import json
 import urllib.request
 import ssl
 import time
+import hashlib
+from base64 import b64encode
 
 # Config
 ODOO_URL = "https://tea-tree.odoo.com/jsonrpc"
@@ -17,8 +19,13 @@ SHOPIFY_CLIENT_ID = os.environ.get("SHOPIFY_CLIENT_ID", "")
 SHOPIFY_CLIENT_SECRET = os.environ.get("SHOPIFY_CLIENT_SECRET", "")
 SHOPIFY_API_VERSION = "2025-01"
 
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY", "")
+MAILCHIMP_DC = "us13"
+MAILCHIMP_LIST = "3c28234aea"
+
 POS_MAP = {1: "pos_waterloo", 2: "pos_popup", 3: "pos_liege", 4: "pos_namur", 5: "pos_liege"}
 STORE_TAGS = {1: "POS-Waterloo", 2: "POS-Popup", 3: "POS-Liège", 4: "POS-Namur", 5: "POS-Liège"}
+STORE_MC_TAGS = {"waterloo": "Waterloo", "namur": "Namur", "liege": "Liège", "pos_waterloo": "Waterloo", "pos_namur": "Namur", "pos_liege": "Liège"}
 
 ctx = ssl.create_default_context()
 
@@ -152,6 +159,56 @@ def create_shopify_customer(email, first_name, last_name, phone, city, zip_code,
         return False
 
 
+# ── MAILCHIMP SUBSCRIBER CREATION ──
+
+def add_to_mailchimp(email, first_name, last_name, store_tag):
+    """Add a subscriber to Mailchimp if not already there. Returns True if added."""
+    if not MAILCHIMP_API_KEY:
+        return False
+
+    auth = b64encode(f"anystring:{MAILCHIMP_API_KEY}".encode()).decode()
+    subscriber_hash = hashlib.md5(email.lower().encode()).hexdigest()
+
+    # Check if already exists
+    req = urllib.request.Request(
+        f"https://{MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/{MAILCHIMP_LIST}/members/{subscriber_hash}",
+        headers={"Authorization": f"Basic {auth}"}
+    )
+    try:
+        with urllib.request.urlopen(req, context=ctx) as resp:
+            existing = json.loads(resp.read())
+            if existing.get("status") in ("subscribed", "unsubscribed", "cleaned", "pending"):
+                return False  # Already exists
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            return False  # Some other error
+        # 404 = not found, proceed to create
+
+    # Create subscriber
+    mc_tag = STORE_MC_TAGS.get(store_tag, "Autres")
+    body = {
+        "email_address": email,
+        "status": "subscribed",
+        "merge_fields": {
+            "FNAME": first_name or "",
+            "LNAME": last_name or "",
+        },
+        "tags": [mc_tag, "auto-sync-odoo"],
+    }
+
+    data = json.dumps(body).encode()
+    req = urllib.request.Request(
+        f"https://{MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/{MAILCHIMP_LIST}/members",
+        data=data, method="POST",
+        headers={"Authorization": f"Basic {auth}", "Content-Type": "application/json"}
+    )
+    try:
+        with urllib.request.urlopen(req, context=ctx) as resp:
+            return True
+    except urllib.error.HTTPError:
+        return False
+
+
 # ══════════════════════════════════════════════════
 # MAIN SYNC
 # ══════════════════════════════════════════════════
@@ -203,42 +260,57 @@ for i in range(0, len(batch), 100):
 
 print(f"  {len(batch)} partners synced to audience")
 
-# 2. Create new partners in Shopify (only those not already there)
-print("\n--- Shopify Customer Creation ---")
+# 2. Create new partners in Shopify + Mailchimp (only those not already there)
+print("\n--- Shopify + Mailchimp Customer Creation ---")
+mailchimp_created = 0
+mailchimp_skipped = 0
+
 for p in partners:
     email = (p.get("email") or "").lower().strip()
     if not email or "@" not in email:
         continue
 
-    # Skip if already in Shopify or blocked
-    if sb_check_exists(email):
-        shopify_skipped += 1
-        continue
+    # Skip if blocked (bounced/unsubscribed)
     if sb_check_blocked(email):
         shopify_skipped += 1
+        mailchimp_skipped += 1
         continue
 
     name_parts = (p.get("name") or "").split(" ", 1)
     first_name = name_parts[0] if name_parts else ""
     last_name = name_parts[1] if len(name_parts) > 1 else ""
+    store = p.get("city") or ""
 
-    created = create_shopify_customer(
-        email, first_name, last_name,
-        p.get("phone"), p.get("city"), p.get("zip"),
-        "POS-client"
-    )
-    if created:
-        shopify_created += 1
-        # Mark in Supabase
-        sb_upsert("audience", [{"email": email, "source_shopify": True}])
+    # Shopify
+    if not sb_check_exists(email):
+        created = create_shopify_customer(
+            email, first_name, last_name,
+            p.get("phone"), p.get("city"), p.get("zip"),
+            "POS-client"
+        )
+        if created:
+            shopify_created += 1
+            sb_upsert("audience", [{"email": email, "source_shopify": True}])
+    else:
+        shopify_skipped += 1
+
+    # Mailchimp
+    mc_added = add_to_mailchimp(email, first_name, last_name, store.lower() if store else "")
+    if mc_added:
+        mailchimp_created += 1
+        sb_upsert("audience", [{"email": email, "source_mailchimp": True}])
+    else:
+        mailchimp_skipped += 1
 
     # Rate limit
-    if (shopify_created + shopify_skipped) % 4 == 0:
+    total_calls = shopify_created + shopify_skipped + mailchimp_created + mailchimp_skipped
+    if total_calls % 8 == 0:
         time.sleep(1)
-    if shopify_created % 50 == 0 and shopify_created > 0:
-        print(f"  {shopify_created} Shopify customers created...")
+    if (shopify_created + mailchimp_created) % 50 == 0 and (shopify_created + mailchimp_created) > 0:
+        print(f"  Shopify: {shopify_created} created | Mailchimp: {mailchimp_created} created")
 
-print(f"  {shopify_created} new Shopify customers created, {shopify_skipped} skipped")
+print(f"  Shopify: {shopify_created} created, {shopify_skipped} skipped")
+print(f"  Mailchimp: {mailchimp_created} created, {mailchimp_skipped} skipped")
 
 # 3. Fetch POS orders (since 2025-01-01)
 print("\n--- POS Orders ---")
@@ -286,4 +358,4 @@ while True:
         break
 
 print(f"  {total_orders} POS orders synced to purchases")
-print(f"\nDone: {len(batch)} partners + {total_orders} orders + {shopify_created} new Shopify customers")
+print(f"\nDone: {len(batch)} partners + {total_orders} orders + {shopify_created} Shopify + {mailchimp_created} Mailchimp")
