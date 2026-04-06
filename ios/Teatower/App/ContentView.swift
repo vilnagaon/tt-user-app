@@ -94,34 +94,59 @@ struct MainTabView: View {
 }
 
 struct MoreView: View {
+    @State private var showScanner = false
+
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink {
-                    BadgesView()
-                } label: {
-                    Label("Mes Badges", systemImage: "trophy.fill")
+                Section {
+                    Button {
+                        showScanner = true
+                    } label: {
+                        Label("Scanner un produit", systemImage: "barcode.viewfinder")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(.teatowerGreen)
+                    }
                 }
 
-                NavigationLink {
-                    RecommendationsView()
-                } label: {
-                    Label("Recommandations", systemImage: "sparkles")
+                Section {
+                    NavigationLink {
+                        BadgesView()
+                    } label: {
+                        Label("Mes Badges", systemImage: "trophy.fill")
+                    }
+
+                    NavigationLink {
+                        RecommendationsView()
+                    } label: {
+                        Label("Recommandations", systemImage: "sparkles")
+                    }
+
+                    NavigationLink {
+                        NotificationCenterView()
+                    } label: {
+                        Label("Notifications", systemImage: "bell.fill")
+                    }
                 }
 
-                NavigationLink {
-                    StoreLocatorView()
-                } label: {
-                    Label("Nos Boutiques", systemImage: "mappin.and.ellipse")
-                }
+                Section {
+                    NavigationLink {
+                        StoreLocatorView()
+                    } label: {
+                        Label("Nos Boutiques", systemImage: "mappin.and.ellipse")
+                    }
 
-                NavigationLink {
-                    SettingsView()
-                } label: {
-                    Label("Réglages", systemImage: "gearshape.fill")
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Label("Réglages", systemImage: "gearshape.fill")
+                    }
                 }
             }
             .navigationTitle("Plus")
+            .fullScreenCover(isPresented: $showScanner) {
+                ScanView()
+            }
         }
     }
 }
