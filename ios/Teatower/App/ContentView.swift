@@ -123,6 +123,18 @@ struct MoreView: View {
                     }
 
                     NavigationLink {
+                        ReferralView()
+                    } label: {
+                        Label("Parrainage", systemImage: "person.2.fill")
+                    }
+
+                    NavigationLink {
+                        WalletView()
+                    } label: {
+                        Label("Apple Wallet", systemImage: "wallet.pass.fill")
+                    }
+
+                    NavigationLink {
                         NotificationCenterView()
                     } label: {
                         Label("Notifications", systemImage: "bell.fill")

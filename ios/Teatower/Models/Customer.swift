@@ -30,6 +30,8 @@ struct AudienceMember: Codable, Identifiable {
     var loyaltyPoints: Int
     var loyaltyTier: String
     var loyaltyPointsLifetime: Int
+    var referralCode: String?
+    var referralCount: Int
     var createdAt: Date?
     var updatedAt: Date?
 
@@ -62,6 +64,8 @@ struct AudienceMember: Codable, Identifiable {
         case loyaltyPoints = "loyalty_points"
         case loyaltyTier = "loyalty_tier"
         case loyaltyPointsLifetime = "loyalty_points_lifetime"
+        case referralCode = "referral_code"
+        case referralCount = "referral_count"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
