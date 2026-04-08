@@ -29,6 +29,7 @@ struct WalletView: View {
         }
         .background(Color.teatowerBg)
         .navigationTitle("Apple Wallet")
+            .teatowerBranded()
         .task {
             member = try? await supabase.fetchProfile()
             isLoading = false

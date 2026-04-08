@@ -121,6 +121,7 @@ struct ReferralView: View {
         }
         .background(Color.teatowerBg)
         .navigationTitle("Parrainage")
+            .teatowerBranded()
         .task { await loadReferral() }
     }
 

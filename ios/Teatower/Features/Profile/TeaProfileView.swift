@@ -32,6 +32,7 @@ struct TeaProfileView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Mon Profil")
+            .teatowerBranded()
             .refreshable { await loadProfile() }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

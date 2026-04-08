@@ -34,6 +34,7 @@ struct BadgesView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Mes Badges")
+            .teatowerBranded()
             .sheet(item: $selectedBadge) { badge in
                 BadgeDetailSheet(badge: badge)
             }

@@ -36,6 +36,7 @@ struct NotificationCenterView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Notifications")
+            .teatowerBranded()
             .toolbar {
                 if !notifications.isEmpty {
                     ToolbarItem(placement: .primaryAction) {

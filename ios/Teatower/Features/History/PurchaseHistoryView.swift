@@ -56,6 +56,7 @@ struct PurchaseHistoryView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Mes Achats")
+            .teatowerBranded()
             .refreshable { await loadPurchases() }
         }
         .task { await loadPurchases() }

@@ -12,6 +12,7 @@
 		1F46F2D9381250798CC116B0 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D6F555C176B17067119D28 /* PushNotificationService.swift */; };
 		2136D7DD7DA63F716362A350 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FEAD0947B79438C9A5D3A /* SupabaseManager.swift */; };
 		2C1AEF510BBA49DE11A7D519 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A432C2EF82AC2C424A3AE71B /* LoginView.swift */; };
+		32C57D9C73850941DFEF2BB2 /* TeatowerNavLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4089581DA84A74FC2B591 /* TeatowerNavLogo.swift */; };
 		3D6943B7AA8FCFE536BD5164 /* TeatowerLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367E8BCED541EC9E5BC43E86 /* TeatowerLogo.swift */; };
 		4035F3368891D63BA9698DA4 /* TeatowerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654710834D83AE29AD65896 /* TeatowerApp.swift */; };
 		4E31B55BEBA3FBE59A864F91 /* LoyaltyDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D62DD7FEECEAD6CE2C28C /* LoyaltyDashboardView.swift */; };
@@ -74,6 +75,7 @@
 		DFC053307A2F4D7E76260769 /* NewJournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJournalEntryView.swift; sourceTree = "<group>"; };
 		E124342B0C692795B67418A5 /* RecommendationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationService.swift; sourceTree = "<group>"; };
 		F0FFBFAD988D90E07C9A4AA1 /* Teatower.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Teatower.entitlements; sourceTree = "<group>"; };
+		F8B4089581DA84A74FC2B591 /* TeatowerNavLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeatowerNavLogo.swift; sourceTree = "<group>"; };
 		FC54ABE3F03C35F141DF3111 /* EditTeaProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeaProfileView.swift; sourceTree = "<group>"; };
 		FF07A8D3B70EB9A331F49397 /* ReferralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 			children = (
 				0F2D1E55F96C4AC9C9969B8C /* FlowLayout.swift */,
 				367E8BCED541EC9E5BC43E86 /* TeatowerLogo.swift */,
+				F8B4089581DA84A74FC2B591 /* TeatowerNavLogo.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				5709E6D7694F7DFDD57A8295 /* TeaProfileView.swift in Sources */,
 				4035F3368891D63BA9698DA4 /* TeatowerApp.swift in Sources */,
 				3D6943B7AA8FCFE536BD5164 /* TeatowerLogo.swift in Sources */,
+				32C57D9C73850941DFEF2BB2 /* TeatowerNavLogo.swift in Sources */,
 				D277ED43EAB1A3EFBB904C45 /* Theme.swift in Sources */,
 				A8EB1545BDA86E5E4CC24EF5 /* WalletView.swift in Sources */,
 			);

@@ -47,6 +47,7 @@ struct RecommendationsView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Découvrir")
+            .teatowerBranded()
             .refreshable { await loadAndRecommend() }
         }
         .task {

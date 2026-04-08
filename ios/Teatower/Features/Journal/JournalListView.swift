@@ -66,6 +66,7 @@ struct JournalListView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Mon Journal")
+            .teatowerBranded()
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button { showNewEntry = true } label: {

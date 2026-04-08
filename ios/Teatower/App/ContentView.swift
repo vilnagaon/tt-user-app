@@ -151,6 +151,7 @@ struct MoreView: View {
                 }
             }
             .navigationTitle("Plus")
+            .teatowerBranded()
             .fullScreenCover(isPresented: $showScanner) {
                 ScanView()
             }

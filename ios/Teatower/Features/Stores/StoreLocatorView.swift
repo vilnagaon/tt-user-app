@@ -29,6 +29,7 @@ struct StoreLocatorView: View {
             }
             .background(Color.teatowerBg)
             .navigationTitle("Nos Boutiques")
+            .teatowerBranded()
         }
     }
 }
