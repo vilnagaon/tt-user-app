@@ -27,6 +27,11 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_KEY_CFBundleDisplayName: Teatower
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.food-and-drink"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_NSCameraUsageDescription: "Teatower utilise la caméra pour scanner les codes-barres de vos produits thé."
+        INFOPLIST_KEY_UIBackgroundModes: "remote-notification"
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: false
         SWIFT_EMIT_LOC_STRINGS: "YES"
         GENERATE_INFOPLIST_FILE: false
     dependencies:
