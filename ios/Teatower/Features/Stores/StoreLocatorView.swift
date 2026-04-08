@@ -63,10 +63,10 @@ struct StoreCard: View {
                         Text(h.day)
                             .font(.system(size: 13))
                             .frame(width: 80, alignment: .leading)
-                            .foregroundStyle(h.highlighted ? .teatowerBrown : .secondary)
+                            .foregroundColor(h.highlighted ? Color.teatowerBrown : .secondary)
                         Text(h.time)
                             .font(.system(size: 13, weight: h.highlighted ? .bold : .regular))
-                            .foregroundStyle(h.highlighted ? .teatowerBrown : .primary)
+                            .foregroundColor(h.highlighted ? Color.teatowerBrown : .primary)
                     }
                 }
             }

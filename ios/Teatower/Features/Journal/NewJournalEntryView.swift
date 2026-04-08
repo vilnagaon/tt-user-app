@@ -115,7 +115,7 @@ struct NewJournalEntryView: View {
                 // Favorite
                 Toggle(isOn: $isFavorite) {
                     Label("Ajouter aux favoris", systemImage: isFavorite ? "heart.fill" : "heart")
-                        .foregroundStyle(isFavorite ? .red : .primary)
+                        .foregroundColor(isFavorite ? .red : .primary)
                 }
                 .tint(.red)
                 .padding()

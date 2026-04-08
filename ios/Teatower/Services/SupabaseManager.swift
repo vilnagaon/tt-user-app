@@ -69,11 +69,20 @@ final class SupabaseManager {
             .value
     }
 
+    struct TeaProfileUpdate: Encodable {
+        let tea_profile: TeaProfile
+        let updated_at: String
+    }
+
     func updateTeaProfile(_ profile: TeaProfile) async throws {
         guard let email = currentEmail else { return }
+        let update = TeaProfileUpdate(
+            tea_profile: profile,
+            updated_at: Date().ISO8601Format()
+        )
         try await client
             .from("audience")
-            .update(["tea_profile": profile, "updated_at": Date().ISO8601Format()])
+            .update(update)
             .eq("email", value: email)
             .execute()
     }

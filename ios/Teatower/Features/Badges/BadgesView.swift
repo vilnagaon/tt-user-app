@@ -92,7 +92,7 @@ struct BadgesView: View {
             Text(emoji).font(.system(size: 14))
             Text("\(count)")
                 .font(.system(size: 14, weight: .bold))
-                .foregroundStyle(count > 0 ? .primary : .teatowerMuted)
+                .foregroundColor(count > 0 ? .primary : Color.teatowerMuted)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
@@ -204,7 +204,7 @@ struct BadgeTile: View {
 
             Text(badge.earned || badge.definition.category != "secret" ? badge.definition.name : "???")
                 .font(.system(size: 10, weight: badge.earned ? .semibold : .regular))
-                .foregroundStyle(badge.earned ? .primary : .teatowerMuted)
+                .foregroundColor(badge.earned ? .primary : Color.teatowerMuted)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(height: 28)

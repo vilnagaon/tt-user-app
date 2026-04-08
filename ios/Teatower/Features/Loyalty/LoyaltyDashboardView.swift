@@ -351,7 +351,7 @@ struct RewardsShopView: View {
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(canAfford ? Color.teatowerGreen : Color.gray.opacity(0.2))
-                    .foregroundStyle(canAfford ? .white : .teatowerMuted)
+                    .foregroundColor(canAfford ? .white : Color.teatowerMuted)
                     .clipShape(Capsule())
             }
             .disabled(!canAfford)

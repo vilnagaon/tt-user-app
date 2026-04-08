@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import AudioToolbox
 
 struct ScanView: View {
     @Environment(SupabaseManager.self) private var supabase
@@ -199,7 +200,7 @@ struct ProductDetailView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 14)
                             .background(isFavorite ? Color.red.opacity(0.1) : Color.teatowerBg)
-                            .foregroundStyle(isFavorite ? .red : .primary)
+                            .foregroundColor(isFavorite ? .red : .primary)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
 
