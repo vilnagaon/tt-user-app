@@ -37,7 +37,7 @@ struct RecommendationsView: View {
                         if !saison.isEmpty {
                             sectionCard(title: "Sélection de saison", icon: "sun.max.fill", color: .orange, recs: saison)
                         }
-                    } else if member?.teaProfile.favoriteTypes.isNilOrEmpty == true {
+                    } else if (member?.teaProfile.favoriteTypes ?? []).isEmpty {
                         noProfileCard
                     } else {
                         noProfileCard
