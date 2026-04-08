@@ -7,13 +7,6 @@ struct LoginView: View {
     @State private var linkSent = false
     @State private var errorMessage: String?
 
-    // TEST bypass — remove before production
-    #if DEBUG
-    @State private var showTestBypass = false
-    private let testPassword = "teatower2026"
-    @State private var testPasswordInput = ""
-    #endif
-
     var body: some View {
         ZStack {
             Color.teatowerBg.ignoresSafeArea()
@@ -21,7 +14,7 @@ struct LoginView: View {
             VStack(spacing: 32) {
                 Spacer()
 
-                // Logo on green background (like emails/website)
+                // Logo on green background
                 VStack(spacing: 0) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 16)
@@ -35,7 +28,6 @@ struct LoginView: View {
                                     .scaledToFit()
                                     .frame(width: 180)
                             default:
-                                // Fallback: text logo on green
                                 HStack(spacing: 6) {
                                     Image(systemName: "leaf.fill")
                                         .font(.system(size: 24))
@@ -123,17 +115,6 @@ struct LoginView: View {
                             .font(.caption)
                             .foregroundStyle(.teatowerMuted)
                             .multilineTextAlignment(.center)
-
-                        // TEST BYPASS — DEBUG only
-                        #if DEBUG
-                        Divider().padding(.vertical, 4)
-
-                        Button("Test: bypass login") {
-                            showTestBypass = true
-                        }
-                        .font(.system(size: 12))
-                        .foregroundStyle(.red.opacity(0.5))
-                        #endif
                     }
                     .padding(24)
                     .background(.white)
@@ -150,20 +131,6 @@ struct LoginView: View {
             }
             .padding(24)
         }
-        #if DEBUG
-        .alert("Test Login", isPresented: $showTestBypass) {
-            TextField("Email", text: $email)
-            SecureField("Password", text: $testPasswordInput)
-            Button("Cancel", role: .cancel) {}
-            Button("Login") {
-                if testPasswordInput == testPassword && email.contains("@") {
-                    Task { await testBypassLogin() }
-                }
-            }
-        } message: {
-            Text("Debug bypass — enter email and test password")
-        }
-        #endif
     }
 
     private func sendMagicLink() async {
@@ -177,16 +144,4 @@ struct LoginView: View {
         }
         isSending = false
     }
-
-    #if DEBUG
-    private func testBypassLogin() async {
-        // Sign in with Supabase email+password (for testing only)
-        do {
-            try await supabase.client.auth.signIn(email: email, password: testPasswordInput)
-            await supabase.checkSession()
-        } catch {
-            errorMessage = "Test login failed: \(error.localizedDescription)"
-        }
-    }
-    #endif
 }
