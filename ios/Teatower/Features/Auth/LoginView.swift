@@ -7,6 +7,13 @@ struct LoginView: View {
     @State private var linkSent = false
     @State private var errorMessage: String?
 
+    // TEST bypass — remove before production
+    #if DEBUG
+    @State private var showTestBypass = false
+    private let testPassword = "teatower2026"
+    @State private var testPasswordInput = ""
+    #endif
+
     var body: some View {
         ZStack {
             Color.teatowerBg.ignoresSafeArea()
@@ -14,17 +21,43 @@ struct LoginView: View {
             VStack(spacing: 32) {
                 Spacer()
 
-                VStack(spacing: 12) {
-                    TeatowerLogo(width: 180)
+                // Logo on green background (like emails/website)
+                VStack(spacing: 0) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.teatowerGreen)
+                            .frame(height: 100)
+                        AsyncImage(url: URL(string: "https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png")) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 180)
+                            default:
+                                // Fallback: text logo on green
+                                HStack(spacing: 6) {
+                                    Image(systemName: "leaf.fill")
+                                        .font(.system(size: 24))
+                                    Text("TEATOWER")
+                                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                                }
+                                .foregroundStyle(.white)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 40)
 
                     Text("Mon Espace Thé")
                         .font(.teatowerTitle)
                         .foregroundStyle(.teatowerGreen)
+                        .padding(.top, 16)
 
                     Text("Votre profil, vos achats,\nvos recommandations.")
                         .font(.teatowerBody)
                         .foregroundStyle(.teatowerMuted)
                         .multilineTextAlignment(.center)
+                        .padding(.top, 4)
                 }
 
                 if linkSent {
@@ -90,6 +123,17 @@ struct LoginView: View {
                             .font(.caption)
                             .foregroundStyle(.teatowerMuted)
                             .multilineTextAlignment(.center)
+
+                        // TEST BYPASS — DEBUG only
+                        #if DEBUG
+                        Divider().padding(.vertical, 4)
+
+                        Button("Test: bypass login") {
+                            showTestBypass = true
+                        }
+                        .font(.system(size: 12))
+                        .foregroundStyle(.red.opacity(0.5))
+                        #endif
                     }
                     .padding(24)
                     .background(.white)
@@ -106,6 +150,20 @@ struct LoginView: View {
             }
             .padding(24)
         }
+        #if DEBUG
+        .alert("Test Login", isPresented: $showTestBypass) {
+            TextField("Email", text: $email)
+            SecureField("Password", text: $testPasswordInput)
+            Button("Cancel", role: .cancel) {}
+            Button("Login") {
+                if testPasswordInput == testPassword && email.contains("@") {
+                    Task { await testBypassLogin() }
+                }
+            }
+        } message: {
+            Text("Debug bypass — enter email and test password")
+        }
+        #endif
     }
 
     private func sendMagicLink() async {
@@ -119,4 +177,16 @@ struct LoginView: View {
         }
         isSending = false
     }
+
+    #if DEBUG
+    private func testBypassLogin() async {
+        // Sign in with Supabase email+password (for testing only)
+        do {
+            try await supabase.client.auth.signIn(email: email, password: testPasswordInput)
+            await supabase.checkSession()
+        } catch {
+            errorMessage = "Test login failed: \(error.localizedDescription)"
+        }
+    }
+    #endif
 }
