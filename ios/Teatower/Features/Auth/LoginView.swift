@@ -15,9 +15,7 @@ struct LoginView: View {
                 Spacer()
 
                 VStack(spacing: 12) {
-                    Image(systemName: "leaf.fill")
-                        .font(.system(size: 56))
-                        .foregroundStyle(.teatowerGreen)
+                    TeatowerLogo(width: 180)
 
                     Text("Mon Espace Thé")
                         .font(.teatowerTitle)

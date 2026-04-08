@@ -48,12 +48,7 @@ struct SplashView: View {
         ZStack {
             Color.teatowerBg.ignoresSafeArea()
             VStack(spacing: 16) {
-                Image(systemName: "leaf.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(.teatowerGreen)
-                Text("Teatower")
-                    .font(.teatowerTitle)
-                    .foregroundStyle(.teatowerGreen)
+                TeatowerLogo(width: 180)
                 ProgressView()
                     .tint(.teatowerGreen)
             }
