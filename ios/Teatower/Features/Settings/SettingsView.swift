@@ -84,17 +84,25 @@ struct SettingsView: View {
         // For now, defaults are true
     }
 
+    private struct PushPrefsUpdate: Encodable {
+        let push_promo: Bool
+        let push_restock: Bool
+        let push_new_arrival: Bool
+        let push_badge: Bool
+        let push_loyalty: Bool
+    }
+
     private func savePushPrefs() async {
         guard let email = supabase.currentEmail else { return }
         try? await supabase.client
             .from("audience")
-            .update([
-                "push_promo": pushPromo,
-                "push_restock": pushRestock,
-                "push_new_arrival": pushNewArrival,
-                "push_badge": pushBadge,
-                "push_loyalty": pushLoyalty,
-            ])
+            .update(PushPrefsUpdate(
+                push_promo: pushPromo,
+                push_restock: pushRestock,
+                push_new_arrival: pushNewArrival,
+                push_badge: pushBadge,
+                push_loyalty: pushLoyalty
+            ))
             .eq("email", value: email)
             .execute()
     }

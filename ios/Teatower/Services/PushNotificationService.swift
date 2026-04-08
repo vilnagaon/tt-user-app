@@ -38,18 +38,28 @@ final class PushNotificationService: NSObject {
         isAuthorized = settings.authorizationStatus == .authorized
     }
 
+    // Encodable structs for Supabase updates
+    private struct TokenUpdate: Encodable {
+        let apns_device_token: String
+        let push_enabled: Bool
+    }
+
+    private struct MarkReadUpdate: Encodable {
+        let is_read: Bool
+        let read_at: String
+    }
+
     // MARK: - Token
 
     func didRegisterToken(_ tokenData: Data) {
         let token = tokenData.map { String(format: "%02.2hhx", $0) }.joined()
         deviceToken = token
 
-        // Save to Supabase
         Task {
             guard let email = SupabaseManager.shared.currentEmail else { return }
             try? await SupabaseManager.shared.client
                 .from("audience")
-                .update(["apns_device_token": token, "push_enabled": true])
+                .update(TokenUpdate(apns_device_token: token, push_enabled: true))
                 .eq("email", value: email)
                 .execute()
         }
@@ -78,7 +88,7 @@ final class PushNotificationService: NSObject {
     func markAsRead(_ notificationId: String) async {
         try? await SupabaseManager.shared.client
             .from("notifications")
-            .update(["is_read": true, "read_at": Date().ISO8601Format()])
+            .update(MarkReadUpdate(is_read: true, read_at: Date().ISO8601Format()))
             .eq("id", value: notificationId)
             .execute()
         await refreshUnreadCount()
@@ -88,7 +98,7 @@ final class PushNotificationService: NSObject {
         guard let email = SupabaseManager.shared.currentEmail else { return }
         try? await SupabaseManager.shared.client
             .from("notifications")
-            .update(["is_read": true, "read_at": Date().ISO8601Format()])
+            .update(MarkReadUpdate(is_read: true, read_at: Date().ISO8601Format()))
             .eq("email", value: email)
             .eq("is_read", value: false)
             .execute()

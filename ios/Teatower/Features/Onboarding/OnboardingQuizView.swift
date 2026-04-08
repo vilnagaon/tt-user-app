@@ -2,6 +2,8 @@ import SwiftUI
 
 /// First-time user quiz that builds the Tea Profile in 4 steps.
 /// Shown once after login if tea_profile is empty.
+private struct SourceAppUpdate: Encodable { let source_app: Bool }
+
 struct OnboardingQuizView: View {
     @Environment(SupabaseManager.self) private var supabase
     @Environment(\.dismiss) private var dismiss
@@ -376,7 +378,7 @@ struct OnboardingQuizView: View {
             // Mark source_app = true
             try await supabase.client
                 .from("audience")
-                .update(["source_app": true])
+                .update(SourceAppUpdate(source_app: true))
                 .eq("email", value: supabase.currentEmail ?? "")
                 .execute()
             dismiss()
