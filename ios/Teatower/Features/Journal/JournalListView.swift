@@ -208,7 +208,7 @@ struct JournalEntryRow: View {
                             .background(Color.teatowerGreen.opacity(0.1))
                             .clipShape(Capsule())
                     }
-                    for m in (entry.mood ?? []).prefix(2) {
+                    ForEach(Array((entry.mood ?? []).prefix(2)), id: \.self) { m in
                         Text(m)
                             .font(.system(size: 10))
                             .padding(.horizontal, 6)
